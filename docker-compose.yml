@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - USE_MEMORY=false
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PYTHONPATH=/app
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"

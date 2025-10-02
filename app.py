@@ -1,7 +1,6 @@
 import os
 import json
-from flask import Flask, request, jsonify
-
+from flask import Flask, request, jsonify, render_template_string
 
 class Storage:
     def add(self, item): raise NotImplementedError
@@ -30,7 +29,6 @@ class MemoryStorage(Storage):
     def list(self):
         return list(self.items)
 
-
 def create_app():
     app = Flask(__name__)
 
@@ -46,9 +44,46 @@ def create_app():
 
     app.storage = storage
 
-    @app.route("/")
+    # HTML template for the form and output
+    HTML_TEMPLATE = '''
+    <!doctype html>
+    <html>
+    <head><title>Simple Data App</title></head>
+    <body>
+        <h1>Enter your value:</h1>
+        <form method="POST">
+            <input type="text" name="value" placeholder="Type something..." required>
+            <button type="submit">Add</button>
+        </form>
+        {% if message %}
+            <h2>{{ message }}</h2>
+        {% endif %}
+        <h3>All Values:</h3>
+        <ul>
+            {% for item in items %}
+                <li>{{ item['value'] }}</li>
+            {% endfor %}
+        </ul>
+        <p><a href="/data">View as JSON</a> | <a href="/health">Health Check</a></p>
+    </body>
+    </html>
+    '''
+
+    @app.route("/", methods=["GET", "POST"])
     def index():
-        return jsonify({"msg": "go-webapp-sample"}), 200
+        message = None
+        if request.method == "POST":
+            value = request.form.get("value")
+            if value:
+                item = {"value": value}
+                app.storage.add(item)
+                message = f"Added: {value}"
+            else:
+                message = "Error: Missing value!"
+
+        # Get all items
+        items = app.storage.list()
+        return render_template_string(HTML_TEMPLATE, message=message, items=items)
 
     @app.route("/data", methods=["POST"])
     def post_data():
