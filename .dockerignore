@@ -1,0 +1,8 @@
+.gitignore
+.venv
+.git
+__pycache__
+*.pyc
+.pytest_cache
+Dockerfile.dev
+docker-compose.yml
