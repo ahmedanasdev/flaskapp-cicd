@@ -1,0 +1,24 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+  "Name": "ahmedanas04/flaskapp-prod:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 8080,
+      "HostPort": 80
+    }
+  ],
+  "Environment": [
+    {
+      "Name": "FLASK_ENV",
+      "Value": "production"
+    },
+    {
+      "Name": "USE_MEMORY_DB",
+      "Value": "1"
+    }
+  ],
+  "Logging": "/var/log/gunicorn"
+}
