@@ -257,19 +257,22 @@ Environment Variables
 Set within Elastic Beanstalk Console under Configuration → Software → Environment properties:
 •	REDIS_ENDPOINT: Primary endpoint of AWS Redis OSS.
 •	REDIS_PORT: Redis port number.
- 
+ <img width="975" height="108" alt="image" src="https://github.com/user-attachments/assets/a88fa181-136c-4d2f-a1b1-99d4f198470d" />
+
 Networking
 •	Ensure security groups allow inbound/outbound access for:
 o	Port 8080 (app container)
 o	Port 6379 (Redis)
 
- 
+ <img width="975" height="463" alt="image" src="https://github.com/user-attachments/assets/980f1eb7-6baf-4fb4-a32f-3442eb760d2d" />
+
 
 ________________________________________
 Redis OSS Integration
 •	AWS ElastiCache (Redis OSS) is used as the in-memory data store.
 •	The Flask app connects to Redis using the endpoint and port defined in the environment variables.
- 
+ <img width="975" height="478" alt="image" src="https://github.com/user-attachments/assets/39e6b167-5066-410b-bbe1-467fa9221365" />
+
 ________________________________________
 Summary
 ✅ The pipeline automates:
@@ -279,6 +282,11 @@ Summary
 4.	Deploying it to AWS Elastic Beanstalk
 Redis OSS enhances performance by caching frequently used data.
 ________________________________________
+
+<img width="975" height="206" alt="image" src="https://github.com/user-attachments/assets/b2eb9f3d-e2ee-4ec4-ae6f-53bdb4636f9b" />
+<img width="975" height="118" alt="image" src="https://github.com/user-attachments/assets/71be8f84-bace-45c7-bdfb-80d99e355501" />
+<img width="534" height="397" alt="image" src="https://github.com/user-attachments/assets/b3f34e21-5c6e-4471-a5a2-8576d0fcbb80" />
+
 
 
  
