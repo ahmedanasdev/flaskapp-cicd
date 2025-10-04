@@ -35,3 +35,14 @@ jobs:
         run: |
           docker run --rm -e USE_MEMORY_DB=1 -e PYTHONPATH=/app flaskapp-prod sh -c "pip install pytest==7.4.0 && export PATH=$PATH:/home/appuser/.local/bin && pytest tests/test_app.py"
           
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: flaskapp
+          environment_name: flaskapp-env
+          version_label: ${{ github.sha }}
+          region: us-east-1
+          deployment_package: Dockerrun.aws.json
